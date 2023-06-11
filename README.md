@@ -1,1 +1,1 @@
-# softchobo-spring-study
+# softchobo-spring-boot-study
