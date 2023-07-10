@@ -4,6 +4,7 @@ import com.softchobo.springboot.properties.MyProperties;
 import com.softchobo.springboot.service.MyPropertyService;
 import com.softchobo.springboot.service.SortService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.context.refresh.ContextRefresher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class MainController {
     private final MyProperties myProperties;
     private final SortService sortService;
     private final MyPropertyService myPropertyService;
+    private final ContextRefresher contextRefresher;
 
 // 생성자 롬복 대체, @Value 는 Lombok 에서는 다른 용도로 사용 되므로 지원이 안된다.
 //    public MainController(SortService sortService,
@@ -69,8 +71,8 @@ public class MainController {
         );
     }
 
-//    @GetMapping("/refresh")
-//    public Map<String, Set<String>> refresh() {
-//        return Map.of("refreshResult", contextRefreshedEvent.r)
-//    }
+    @GetMapping("/refresh")
+    public Map<String, Set<String>> refresh() {
+        return Map.of("refreshResult", contextRefresher.refresh());
+    }
 }

@@ -11,7 +11,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
@@ -24,7 +23,6 @@ import org.springframework.core.env.Environment;
 //@RequiredArgsConstructor
 //Cach 적용
 @EnableCaching // 캐시적용할 db 매서드에 @Cacheable("cache 이름") 적용
-@EnableConfigServer
 public class SoftchoboSpringBootStudyApplication {
 
 //	@Value("${My.port}")
