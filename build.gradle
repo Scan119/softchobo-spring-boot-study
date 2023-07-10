@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.softchobo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2022.0.3")
+}
+
+dependencies {
+	implementation 'org.springframework.cloud:spring-cloud-config-server'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-task'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-vault-config'
+	// cache 의존성 주입을 안해도 cache 사용이 가능하다
+//	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:junit-jupiter'
+//	testImplementation 'org.testcontainers:vault'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+compileJava {
+    inputs.files(processResources)
+}
+
+// spring-boot-configuration-processor dependency 를 추가하고
+// resources /  META-INF / additional-spring-configuration-metadata.json 사용을 위해
+// compileJava 를 추가한다.
+// 별 쓸모는 크게 없음
